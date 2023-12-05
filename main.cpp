@@ -24,22 +24,27 @@ int main()
     cout << "máximo 24 jogadas. Vence aquele que" << endl;
     cout << "localizar todos os pares." << endl;
     cout << "\n";
-    cout << "Pressione ENTER para continuar.";
+    cout << "Pressione ENTER para continuar...";
     getchar();
     cout << "\n";
     cout << "   O jogo será uma matriz 4x4, cujas" << endl;
     cout << "linhas e colunas são enumeradas de" << endl;
-    cout << "0 a 7. Para realizar uma jogada, o" << endl;
+    cout << "0 a 3. Para realizar uma jogada, o" << endl;
     cout << "usuário deverá informar as coordenadas" << endl;
     cout << "relativas à carta desejada. Por exemplo:" << endl;
-    cout << "Insira o valor da linha: X" << endl;
-    cout << "Insira o valor da coluna: Y" << endl;
+    cout << "Insira o valor da linha: 2" << endl;
+    cout << "Insira o valor da coluna: 0" << endl;
     cout << "\n";
     cout << "           BOM JOGO!" << endl;
+    cout << "\n";
+    cout << "Pressione ENTER para continuar...";
+    getchar();
+    cout << "\n";
+    system("clear");
 
     int matInicial[4][4] = {1, 7, 2, 6, 4, 5, 3, 5, 8, 3, 1, 7, 2, 8, 6, 4};
     int matGabarito[4][4];
-    int matJogo[4][4];
+    int matJogo[4][4] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
     srand(time(NULL));
     int random = 1 + rand() % 4;
@@ -87,16 +92,147 @@ int main()
         }
     }
 
-    cout << random << endl;
-    cout << "\n";
+    int contPares = 0;
 
+    for (int r = 1; r <= 24; r++){
 
-    for (int i = 0; i < 4; i++){
-        for (int j = 0; j < 4; j++){
-           cout << matGabarito[i][j];
+        int coordLin, coordCol, coordLinC1, coordColC1, c1, coordLinC2, coordColC2, c2;
+
+        if (contPares == 8){
+            system("clear");
+            cout << "Parabéns! Você ganhou!" << endl;
+            return 0;
+        }
+
+        cout << "Jogada " << r << " de 24" << endl;
+        cout << "\n";
+
+        // ESTÉTICA DE DIVISÃO DAS CARTAS
+        for (int i = 0; i < 4; i++){
+            for (int j = 0; j < 4; j++){
+
+                if (j == 3) {
+                cout << "|" << matJogo[i][j] << "|";
+                }
+
+                else {
+                cout << "|" << matJogo[i][j];
+                }
+            }
+            cout << "\n";
         }
         cout << "\n";
+
+        for (int carta = 1; carta <= 2; carta++){
+
+            do {
+                cout << "Insira o valor da linha da carta " << carta << ": ";
+                cin >> coordLin;
+
+                if (coordLin < 0 || coordLin > 3){
+                    cout << "ERRO: Coordenada inexistente!" << endl;
+                    cout << "\n";
+                }
+
+                if (carta == 1){coordLinC1 = coordLin;}
+
+                if (carta == 2){coordLinC2 = coordLin;}
+
+            }
+            while(coordLin < 0 || coordLin > 3);
+            cout << "\n";
+
+            do {
+                cout << "Insira o valor da coluna da carta " << carta << ": ";
+                cin >> coordCol;
+
+                if (coordCol < 0 || coordCol > 3){
+                    cout << "ERRO: Coordenada inexistente!" << endl;
+                    cout << "\n";
+                }
+
+                if (matJogo[coordLin][coordCol] != 0) {
+                    cout << "ERRO: A carta já foi descoberta!" << endl;
+                    cout << "\n";
+                    coordCol = -1;
+                }
+
+                if (carta == 1){
+                    coordColC1 = coordCol;
+                }
+
+                if (carta == 2){
+
+                    if (coordLin == coordLinC1 && coordCol == coordColC1){
+                    coordCol = -1;
+                    cout << "ERRO: Coordenadas iguais!" << endl;
+                    cout << "\n";
+                    }
+
+                    else {
+                       coordColC2 = coordCol;
+                    }
+                }
+            }
+            while(coordCol < 0 || coordCol > 3);
+            cout << "\n";
+
+            if (carta == 1) {
+                c1 = matGabarito[coordLinC1][coordColC1];
+                matJogo[coordLinC1][coordColC1] = c1;
+            }
+
+            if (carta == 2) {
+                c2 = matGabarito[coordLinC2][coordColC2];
+                matJogo[coordLinC2][coordColC2] = c2;
+            }
+
+            for (int i = 0; i < 4; i++){
+                for (int j = 0; j < 4; j++){
+
+                    if (j == 3) {
+                        cout << "|" << matJogo[i][j] << "|";
+                    }
+
+                    else {
+                        cout << "|" << matJogo[i][j];
+                    }
+                }
+                cout << "\n";
+            }
+            cout << "\n";
+
+            if (carta == 2){
+
+                if (c1 != c2){
+                    cout << "ERROU!" << endl;
+                    cout << "\n";
+                    matJogo[coordLinC1][coordColC1] = 0;
+                    matJogo[coordLinC2][coordColC2] = 0;
+                    getchar();
+                    cout << "Pressione ENTER para continuar...";
+                    getchar();
+                    system("clear");
+                }
+
+                if (c1 == c2){
+                    cout << "ACERTOU!" << endl;
+                    cout << "\n";
+                    matJogo[coordLinC1][coordColC1] = c1;
+                    matJogo[coordLinC2][coordColC2] = c2;
+                    contPares++;
+                    getchar();
+                    cout << "Pressione ENTER para continuar...";
+                    getchar();
+                    system("clear");
+                }
+            }
+        }
     }
+
+
+    system("clear");
+    cout << "Você perdeu!" << endl;
 
 return 0;
 }
