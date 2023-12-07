@@ -18,22 +18,28 @@ int main()
     cout << "\n";
     cout << "\n";
     cout << "   O jogo é composto por 8 pares de" << endl;
-    cout << "cartas enumeradas de 1 a 8, onde" << endl;
-    cout << "o jogador deve escolher duas cartas" << endl;
-    cout << "por jogada, podendo executar no" << endl;
+    cout << "cartas enumeradas de 1 a 8, onde em" << endl;
+    cout << "cada jogada o jogador deve escolher" << endl;
+    cout << "duas cartas, podendo executar até no" << endl;
     cout << "máximo 24 jogadas. Vence aquele que" << endl;
-    cout << "localizar todos os pares." << endl;
+    cout << "localizar todos os pares em tempo hábil." << endl;
     cout << "\n";
     cout << "Pressione ENTER para continuar...";
     getchar();
     cout << "\n";
-    cout << "   O jogo será uma matriz 4x4, cujas" << endl;
-    cout << "linhas e colunas são enumeradas de" << endl;
-    cout << "0 a 3. Para realizar uma jogada, o" << endl;
+    cout << "   O jogo consiste em uma matriz 4x4," << endl;
+    cout << "cujas linhas e colunas são enumeradas" << endl;
+    cout << "de 0 a 3. Para realizar uma jogada, o" << endl;
     cout << "usuário deverá informar as coordenadas" << endl;
     cout << "relativas à carta desejada. Por exemplo:" << endl;
+    cout << "\n";
     cout << "Insira o valor da linha: 2" << endl;
     cout << "Insira o valor da coluna: 0" << endl;
+    cout << "\n";
+    cout << "|0|0|0|0|" << endl;
+    cout << "|0|0|0|0|" << endl;
+    cout << "|X|0|0|0|" << endl;
+    cout << "|0|0|0|0|" << endl;
     cout << "\n";
     cout << "           BOM JOGO!" << endl;
     cout << "\n";
@@ -134,9 +140,31 @@ int main()
                     cout << "\n";
                 }
 
-                if (carta == 1){coordLinC1 = coordLin;}
+                if (carta == 1){
 
-                if (carta == 2){coordLinC2 = coordLin;}
+                    if (matJogo[coordLin][0] != 0 && matJogo[coordLin][1] != 0 && matJogo[coordLin][2] != 0 && matJogo[coordLin][3] != 0){
+                        cout << "ERRO: A linha já foi preenchida!" << endl;
+                        cout << "\n";
+                        coordLin = -1;
+                    }
+
+                    else{
+                        coordLinC1 = coordLin;
+                    }
+                }
+
+                if (carta == 2){
+
+                    if (matJogo[coordLin][0] != 0 && matJogo[coordLin][1] != 0 && matJogo[coordLin][2] != 0 && matJogo[coordLin][3] != 0){
+                        cout << "ERRO: A linha já foi preenchida!" << endl;
+                        cout << "\n";
+                        coordLin = -1;
+                    }
+
+                    else{
+                        coordLinC2 = coordLin;
+                    }
+                }
 
             }
             while(coordLin < 0 || coordLin > 3);
@@ -151,7 +179,7 @@ int main()
                     cout << "\n";
                 }
 
-                if (matJogo[coordLin][coordCol] != 0) {
+                if (matJogo[coordLin][coordCol] != 0 && coordCol >= 0 && coordCol <= 3) {
                     cout << "ERRO: A carta já foi descoberta!" << endl;
                     cout << "\n";
                     coordCol = -1;
@@ -162,16 +190,7 @@ int main()
                 }
 
                 if (carta == 2){
-
-                    if (coordLin == coordLinC1 && coordCol == coordColC1){
-                    coordCol = -1;
-                    cout << "ERRO: Coordenadas iguais!" << endl;
-                    cout << "\n";
-                    }
-
-                    else {
-                       coordColC2 = coordCol;
-                    }
+                    coordColC2 = coordCol;
                 }
             }
             while(coordCol < 0 || coordCol > 3);
