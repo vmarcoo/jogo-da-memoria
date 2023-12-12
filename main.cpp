@@ -15,7 +15,7 @@ using namespace std;
 
 int main()
 {
-    setlocale(LC_ALL, "portuguese");
+    setlocale(LC_ALL, "Portuguese");
     cout << " _______________________________"  << endl;
     cout << "|                               |" << endl;
     cout << "| BEM-VINDO AO JOGO DA MEMÓRIA! |" << endl;
@@ -53,7 +53,7 @@ int main()
     cout << "Pressione ENTER para continuar...";
     getchar();
     cout << "\n";
-    system("clear");
+    system("CLS");
 
     // MATRIZ INICIAL JÁ POSSUI VALORES PRÉ DEFINIDOS
     int matInicial[4][4] = {1, 7, 2, 6, 4, 5, 3, 5, 8, 3, 1, 7, 2, 8, 6, 4};
@@ -120,7 +120,7 @@ int main()
 
         // VERIFICAÇÃO --> CASO HAJA 8 PARES DESCOBERTOS, O JOGO FINALIZA COM A MENSAGEM DE VITÓRIA
         if (contPares == 8){
-            system("clear");
+            system("CLS");
             cout <<
             "   _____                      _                         _ \n"
             "  | ___ \\                    | |                       | |\n"
@@ -276,7 +276,7 @@ int main()
                     getchar();
                     cout << "Pressione ENTER para continuar...";
                     getchar();
-                    system("clear");
+                    system("CLS");
                 }
 
                 // SE A CARTA 1 FOR IGUAL À CARTA 2, ACERTOU!
@@ -293,14 +293,14 @@ int main()
                     getchar();
                     cout << "Pressione ENTER para continuar...";
                     getchar();
-                    system("clear");
+                    system("CLS");
                 }
             }
         }
     }
 
 
-    system("clear");
+    system("CLS");
 
     // CASO EXCEDA 24 JOGADAS, O JOGO ACABA COM A MENSAGEM DE DERROTA
     cout <<
